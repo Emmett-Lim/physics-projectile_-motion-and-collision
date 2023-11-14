@@ -71,7 +71,20 @@ void Game::Draw() {
 
 	SDL_SetRenderDrawColor(renderer_, 40, 40, 40, 225);
 	SDL_RenderClear(renderer_);
+
 	
+	for (int i = 0; i < 25; i++) {
+		float angle = ((2 * M_PI / 25) * i);
+		float x = plane_a.GetXPos() + plane_a.GetRadius() * cos(angle);
+		float y = plane_a.GetYPos() + plane_a.GetRadius() * sin(angle);
+
+		SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
+		SDL_RenderDrawPointF(renderer_, x, y);
+	}
+
+	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices(), (plane_b.GetNumSides() + 1), plane_b.GetIndices(), (plane_b.GetNumSides() * 3));
+	
+
 	SDL_RenderPresent(renderer_);
 }
 
