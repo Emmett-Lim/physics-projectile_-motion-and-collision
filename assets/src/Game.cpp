@@ -82,7 +82,7 @@ void Game::Draw() {
 		SDL_RenderDrawPointF(renderer_, x, y);
 	}
 
-	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices(), (plane_b.GetNumSides() + 1), plane_b.GetIndices(), (plane_b.GetNumSides() * 3));
+	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));
 	*/
 
 	SDL_RenderPresent(renderer_);

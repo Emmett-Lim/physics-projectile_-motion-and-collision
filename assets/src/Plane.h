@@ -5,9 +5,9 @@
 class Plane {
 
 	private:
-
-		SDL_Vertex *vertices_{ nullptr };					// dynamic array that will contain SDL_Vertex points (as long as it is a polygon)
-		int *indices_{ nullptr };							// this connects all the vertex in order (optional tbh)
+		
+		std::vector<SDL_Vertex> vertices_;					// vector that contains SDL_Vertex points (only for polygon)
+		std::vector<int> indices_;							// vector containing numbers representing indices of a triangle connected together to form a polygon
 		std::vector<std::pair<float, float>> vertex_pos_;	// pair container to store pos of vertices (two "vertices" for semi-circle, none for circles)
 
 		float xpos_, ypos_, radius_;
@@ -21,20 +21,20 @@ class Plane {
 			  const float& radius = 5, const int &vertices = 0, bool is_static = false);
 		~Plane();
 
-		SDL_Vertex* GetVertices() { return this->vertices_; }
+		std::vector<SDL_Vertex> GetVertices() { return this->vertices_; }
 
-		int* GetIndices() { return this->indices_; }
+		std::vector<int> GetIndices() { return this->indices_; }
 
 		const std::vector<std::pair<float, float>>& GetVertexPos() { return this->vertex_pos_; }
 
-		const float& GetXPos() { return this->xpos_; }
-		const float& GetYPos() { return this->ypos_; }
+		const float& GetXPos() const { return this->xpos_; }
+		const float& GetYPos() const { return this->ypos_; }
 
-		const float& GetRadius() { return this->radius_; }
+		const float& GetRadius() const { return this->radius_; }
 
-		const int& GetNumSides() { return this->num_sides_; }
-		const int& GetTotalPoints() { return this->total_points_; }
-		const int& GetNumIndices() { return this->num_indices_; }
+		const int& GetNumSides() const { return this->num_sides_; }
+		const int& GetTotalPoints() const { return this->total_points_; }
+		const int& GetNumIndices() const { return this->num_indices_; }
 
-		const bool& IsStatic() { return this->is_static_; }
+		const bool& IsStatic() const { return this->is_static_; }
 };
