@@ -10,9 +10,12 @@ class Plane {
 		std::vector<int> indices_;							// vector containing numbers representing indices of a triangle connected together to form a polygon
 		std::vector<std::pair<float, float>> vertex_pos_;	// pair container to store pos of vertices (two "vertices" for semi-circle, none for circles)
 
-		float xpos_, ypos_, radius_;
-		int num_sides_, total_points_, num_indices_;		// total sides of polygon, total amnt of vertices, amount of points (in 3's) to make a triangle of the polygon
+		float xpos_, ypos_;
+
+		float radius_;
+		int num_sides_;
 		float rad_{ 2.0f * static_cast<float>(M_PI) };		// not sure if I will need this so it's here for now
+
 		bool is_static_;
 
 	public:
@@ -30,11 +33,8 @@ class Plane {
 		const float& GetXPos() const { return this->xpos_; }
 		const float& GetYPos() const { return this->ypos_; }
 
-		const float& GetRadius() const { return this->radius_; }
-
 		const int& GetNumSides() const { return this->num_sides_; }
-		const int& GetTotalPoints() const { return this->total_points_; }
-		const int& GetNumIndices() const { return this->num_indices_; }
+		const float& GetRadius() const { return this->radius_; }
 
 		const bool& IsStatic() const { return this->is_static_; }
 };

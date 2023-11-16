@@ -10,8 +10,6 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	this->is_static_ = is_static;
 
 	this->num_sides_ = vertices;
-	this->total_points_ = vertices + 1;
-	this->num_indices_ = vertices * 3;
 
 	// Assume vertices value of 0 or 1 is a circle, 2 is semi-circle, 3 or more is a polygon
 
@@ -26,24 +24,19 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 			float x_vertexpos{ this->xpos_ + this->radius_ * cos(angle) };										// (x, y) coords for each vertex
 			float y_vertexpos{ this->ypos_ + this->radius_ * sin(angle) };
 
-			if (i < this->total_points_) {
-
-				this->vertices_.push_back({ { x_vertexpos, y_vertexpos }, { 255, 255, 255, 255 }, { 1, 1 } });	// Create vertex object with created (x, y) coords and store into vertices container
-			}
+			this->vertices_.push_back({ { x_vertexpos, y_vertexpos }, { 255, 255, 255, 255 }, { 1, 1 } });		// Create vertex object with created (x, y) coords and store into vertices container
 
 			this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });											// Store vertex coords into vertex_pos container for collision checking
 
-			if ((i * 3) <= this->num_indices_) {
-
-				this->indices_.push_back(0);																	// Connects 2 vertices to center of polygon w/ respect to vertices container
-				this->indices_.push_back(i);																	// (i.e. value 0 is the center of polygon, connecting with current value i the
-				this->indices_.push_back((i % this->num_sides_) + 1);											// loop is on and the next vertex ((i % this->num_sides_) + 1))
+			this->indices_.push_back(0);																	// Connects 2 vertices to center of polygon w/ respect to vertices container
+			this->indices_.push_back(i);																	// (i.e. value 0 is the center of polygon, connecting with current value i the
+			this->indices_.push_back((i % this->num_sides_) + 1);											// loop is on and the next vertex ((i % this->num_sides_) + 1))
 																												// (i % this->num_sides_) + 1) ensures that the index is within the range
-				if (i == this->num_sides_) {																	// of valid vertices, and it wraps around to 1 for the last vertex.
+			if (i == this->num_sides_) {																	// of valid vertices, and it wraps around to 1 for the last vertex.
 
-					this->indices_.push_back(1);																// This line sets the third element of the set of three indices to 1,
-				}																								// completing the wrap-around for the last triangle
-			}
+				this->indices_.push_back(1);																// This line sets the third element of the set of three indices to 1,
+			}																								// completing the wrap-around for the last triangle
+
 		}
 
 	} else if (vertices == 2) {																					// W.I.P.
