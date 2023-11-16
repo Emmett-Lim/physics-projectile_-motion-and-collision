@@ -127,6 +127,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /y "$(SolutionDir)assets\library\SDL2-devel-2.28.5-VC\SDL2-2.28.5\lib\x64\SDL2.dll" "$(OutDir)"
+xcopy /d /y "$(SolutionDir)assets\library\SDL2_ttf-devel\SDL2_ttf-2.20.2\lib\x64\SDL2_ttf.dll" "$(OutDir)"
+xcopy /d /y "$(SolutionDir)assets\library\SDL2_image\SDL2_image-2.6.3\lib\x64\SDL2_image.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
