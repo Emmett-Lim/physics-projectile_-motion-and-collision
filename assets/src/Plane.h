@@ -21,11 +21,11 @@ class Plane {
 			  const float& radius = 5, const int &vertices = 0, bool is_static = false);
 		~Plane();
 
-		std::vector<SDL_Vertex> GetVertices() { return this->vertices_; }
+		const std::vector<SDL_Vertex>& GetVertices() const { return this->vertices_; }
 
-		std::vector<int> GetIndices() { return this->indices_; }
+		const std::vector<int>& GetIndices() const { return this->indices_; }
 
-		const std::vector<std::pair<float, float>>& GetVertexPos() { return this->vertex_pos_; }
+		const std::vector<std::pair<float, float>>& GetVertexPos() const { return this->vertex_pos_; }
 
 		const float& GetXPos() const { return this->xpos_; }
 		const float& GetYPos() const { return this->ypos_; }
