@@ -7,9 +7,11 @@ int main(int argc, char* argv[]) {
 	if (game.Init()) {
 
 		game.GameLoop();
+
 	}
 
 	game.Close();
 
 	return 0;
+
 }

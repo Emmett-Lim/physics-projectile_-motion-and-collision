@@ -6,6 +6,7 @@ bool Game::Init() {
 
 		std::cerr << "SDL failed to intialize! Error: " << SDL_GetError() << "\n";
 		return false;
+
 	}
 
 	window_ = SDL_CreateWindow("Template_Name", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -13,6 +14,7 @@ bool Game::Init() {
 
 		std::cerr << "Window failed to initialize! Error: " << SDL_GetError() << "\n";
 		return false;
+
 	}
 
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -20,6 +22,7 @@ bool Game::Init() {
 
 		std::cerr << "Renderer failed to initialize! Error: " << SDL_GetError() << "\n";
 		return false;
+
 	}
 
 	int img_flags{ IMG_INIT_PNG };
@@ -27,9 +30,11 @@ bool Game::Init() {
 
 		std::cerr << "SDL_Image failed to initialize! Error: " << IMG_GetError() << "\n";
 		return false;
+
 	}
 
 	return true;
+
 }
 
 void Game::GameLoop() {
@@ -39,7 +44,9 @@ void Game::GameLoop() {
 		HandleEvents();
 		Update();
 		Draw();
+
 	}
+
 }
 
 void Game::HandleEvents() {
@@ -51,7 +58,11 @@ void Game::HandleEvents() {
 		if (e.type == SDL_QUIT) {
 
 			is_running_ = false;
+
 		}
+
+		mouse_.MouseHandleEvent(e);
+
 	}
 
 	const Uint8* key_states = SDL_GetKeyboardState(nullptr);
@@ -59,7 +70,9 @@ void Game::HandleEvents() {
 	if (key_states[SDL_SCANCODE_ESCAPE]) {
 
 		is_running_ = false;
+
 	}
+
 }
 
 void Game::Update() {
@@ -86,6 +99,7 @@ void Game::Draw() {
 	*/
 
 	SDL_RenderPresent(renderer_);
+
 }
 
 void Game::Close() {
@@ -96,4 +110,5 @@ void Game::Close() {
 
 	IMG_Quit();
 	SDL_Quit();
+
 }

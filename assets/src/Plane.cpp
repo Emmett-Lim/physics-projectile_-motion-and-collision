@@ -11,6 +11,8 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 
 	this->num_sides_ = vertices;
 
+	this->mass_ = radius * 10.0f;																				// Temporary mass value
+
 	// Assume vertices value of 0 or 1 is a circle, 2 is semi-circle, 3 or more is a polygon
 
 	if (vertices > 2) {
@@ -28,14 +30,15 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 
 			this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });											// Store vertex coords into vertex_pos container for collision checking
 
-			this->indices_.push_back(0);																	// Connects 2 vertices to center of polygon w/ respect to vertices container
-			this->indices_.push_back(i);																	// (i.e. value 0 is the center of polygon, connecting with current value i the
-			this->indices_.push_back((i % this->num_sides_) + 1);											// loop is on and the next vertex ((i % this->num_sides_) + 1))
-																												// (i % this->num_sides_) + 1) ensures that the index is within the range
-			if (i == this->num_sides_) {																	// of valid vertices, and it wraps around to 1 for the last vertex.
+			this->indices_.push_back(0);																		// Connects 2 vertices to center of polygon w/ respect to vertices container
+			this->indices_.push_back(i);																		// (i.e. value 0 is the center of polygon, connecting with current value i the
+			this->indices_.push_back((i % this->num_sides_) + 1);												// loop is on and the next vertex ((i % this->num_sides_) + 1))
+																													// (i % this->num_sides_) + 1) ensures that the index is within the range
+			if (i == this->num_sides_) {																		// of valid vertices, and it wraps around to 1 for the last vertex.
 
-				this->indices_.push_back(1);																// This line sets the third element of the set of three indices to 1,
-			}																								// completing the wrap-around for the last triangle
+				this->indices_.push_back(1);																	// This line sets the third element of the set of three indices to 1,
+																												// completing the wrap-around for the last triangle
+			}
 
 		}
 
@@ -47,12 +50,19 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 			float y_vertexpos{ this->ypos_ + ((i * -1) * this->radius_ * sin(this->rad_)) };
 
 			this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });
+
 		}
 
 	}
+
 }
 
 Plane::~Plane() {
 
+	
+}
+
+void Plane::Move(const float& dx, const float& dy) {
+	
 	
 }

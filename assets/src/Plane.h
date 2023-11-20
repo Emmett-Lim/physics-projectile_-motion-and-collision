@@ -15,6 +15,7 @@ class Plane {
 		float radius_;
 		int num_sides_;
 		float rad_{ 2.0f * static_cast<float>(M_PI) };		// not sure if I will need this so it's here for now
+		float mass_;
 
 		bool is_static_;
 
@@ -36,5 +37,10 @@ class Plane {
 		const int& GetNumSides() const { return this->num_sides_; }
 		const float& GetRadius() const { return this->radius_; }
 
+		const float& GetMass() const { return this->mass_; }
+
 		const bool& IsStatic() const { return this->is_static_; }
+
+		void Move(const float& dx, const float& dy);
+
 };
