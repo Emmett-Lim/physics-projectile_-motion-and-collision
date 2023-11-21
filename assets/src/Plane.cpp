@@ -12,6 +12,7 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	this->num_sides_ = vertices;
 
 	this->mass_ = radius * 10.0f;																				// Temporary mass value
+	this->const_speed_ = 8.0f;
 
 	// Assume vertices value of 0 or 1 is a circle, 2 is semi-circle, 3 or more is a polygon
 
@@ -33,7 +34,7 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 			this->indices_.push_back(0);																		// Connects 2 vertices to center of polygon w/ respect to vertices container
 			this->indices_.push_back(i);																		// (i.e. value 0 is the center of polygon, connecting with current value i the
 			this->indices_.push_back((i % this->num_sides_) + 1);												// loop is on and the next vertex ((i % this->num_sides_) + 1))
-																													// (i % this->num_sides_) + 1) ensures that the index is within the range
+																												// (i % this->num_sides_) + 1) ensures that the index is within the range
 			if (i == this->num_sides_) {																		// of valid vertices, and it wraps around to 1 for the last vertex.
 
 				this->indices_.push_back(1);																	// This line sets the third element of the set of three indices to 1,
@@ -63,6 +64,25 @@ Plane::~Plane() {
 }
 
 void Plane::Move(const float& dx, const float& dy) {
+
 	
-	
+
+}
+
+void Plane::MouseMove(const float& m_dx, const float& m_dy) {									// Fix jittery polygons (use delta time?)
+																								// Can multiply by 0.1f but still little bit jittery
+	for (size_t i{ 0 }; i < this->vertices_.size(); ++i) {
+
+		this->vertices_.at(i).position.x += this->const_speed_ * m_dx;
+		this->vertices_.at(i).position.y += this->const_speed_ * m_dy;
+
+		if (i < this->vertex_pos_.size()) {
+			
+			this->vertex_pos_.at(i).first += this->const_speed_ * m_dx;
+			this->vertex_pos_.at(i).second += this->const_speed_ * m_dy;
+
+		}
+		
+	}
+
 }

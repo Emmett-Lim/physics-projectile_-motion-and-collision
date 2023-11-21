@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utilities.h"
+#include "Plane.h"
 
 class Mouse {
 
@@ -21,6 +22,6 @@ class Mouse {
 
 		const bool& IsHoldingPolygon() const { return this->holding_polygon_; }
 
-		void MouseHandleEvent(SDL_Event &e);
+		void MouseHandleEvent(SDL_Event &e, Plane &plane);
 
 };

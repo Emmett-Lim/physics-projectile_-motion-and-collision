@@ -17,7 +17,7 @@ bool Game::Init() {
 
 	}
 
-	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer_ = SDL_CreateRenderer(window_, -1, 0);
 	if (renderer_ == nullptr) {
 
 		std::cerr << "Renderer failed to initialize! Error: " << SDL_GetError() << "\n";
@@ -61,7 +61,7 @@ void Game::HandleEvents() {
 
 		}
 
-		mouse_.MouseHandleEvent(e);
+		mouse_.MouseHandleEvent(e, plane_b);
 
 	}
 
@@ -77,6 +77,17 @@ void Game::HandleEvents() {
 
 void Game::Update() {
 
+	if (mouse_.IsHoldingPolygon()) {
+		
+		float dx = 1.0f;
+		float dy = 1.0f;
+
+		if (mouse_.GetMouseXPos() < plane_b.GetVertices().at(0).position.x) { dx *= -1.0f; }
+		if (mouse_.GetMouseYPos() < plane_b.GetVertices().at(0).position.y) { dy *= -1.0f; }
+
+		plane_b.MouseMove(dx, dy);
+
+	}
 
 }
 
@@ -97,6 +108,8 @@ void Game::Draw() {
 
 	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));
 	*/
+
+	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));		// Test
 
 	SDL_RenderPresent(renderer_);
 
