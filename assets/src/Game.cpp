@@ -103,7 +103,8 @@ void Game::Draw() {
 	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));
 	*/
 
-	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));		// Test
+	SDL_RenderGeometry(renderer_, texture_, plane_a.GetVertices().data(), (plane_a.GetNumSides() + 1), plane_a.GetIndices().data(), (plane_a.GetNumSides() * 3));		// Test as non-interactable obj
+	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));		// Test interactable obj
 
 	SDL_RenderPresent(renderer_);
 

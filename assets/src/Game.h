@@ -20,7 +20,7 @@ private:
 
 	Mouse mouse_;
 
-	//Plane plane_a{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 25.0, 0, false };
+	Plane plane_a{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 57.0, 3, false };			// Test
 	Plane plane_b{ SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3, 50.0, 5, false };			// Test
 
 public:
