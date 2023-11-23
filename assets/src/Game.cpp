@@ -78,14 +78,8 @@ void Game::HandleEvents() {
 void Game::Update() {
 
 	if (mouse_.IsHoldingPolygon()) {
-		
-		float dx = 1.0f;
-		float dy = 1.0f;
 
-		if (mouse_.GetMouseXPos() < plane_b.GetVertices().at(0).position.x) { dx *= -1.0f; }
-		if (mouse_.GetMouseYPos() < plane_b.GetVertices().at(0).position.y) { dy *= -1.0f; }
-
-		plane_b.MouseMove(dx, dy);
+		plane_b.MouseMove(static_cast<float>(mouse_.GetMouseXPos()), static_cast<float>(mouse_.GetMouseYPos()));
 
 	}
 

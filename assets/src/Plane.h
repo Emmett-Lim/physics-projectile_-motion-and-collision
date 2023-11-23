@@ -45,6 +45,6 @@ class Plane {
 		const bool& IsStatic() const { return this->is_static_; }
 
 		void Move(const float& dx, const float& dy);
-		void MouseMove(const float& m_xpos, const float& m_ypos);
+		void MouseMove(const float& m_xcoord, const float& m_ycoord);
 
 };

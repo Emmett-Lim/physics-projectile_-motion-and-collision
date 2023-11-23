@@ -7,8 +7,8 @@ void Mouse::MouseHandleEvent(SDL_Event& e, Plane& plane) {
 	if (e.type == SDL_MOUSEBUTTONDOWN) {
 
 		if (e.button.button == SDL_BUTTON_LEFT &&
-		   (sqrtf(powf((this->m_x_pos_ - plane.GetVertices().at(0).position.x), 2.0f) +
-				  powf((this->m_y_pos_ - plane.GetVertices().at(0).position.y), 2.0f))) <
+		   (sqrtf(powf((static_cast<float>(this->m_x_pos_) - plane.GetVertices().at(0).position.x), 2.0f) +
+				  powf((static_cast<float>(this->m_y_pos_) - plane.GetVertices().at(0).position.y), 2.0f))) <
 		   this->m_radii_ + plane.GetRadius()) {
 
 			this->holding_polygon_ = true;

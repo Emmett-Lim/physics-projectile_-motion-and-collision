@@ -69,20 +69,23 @@ void Plane::Move(const float& dx, const float& dy) {
 
 }
 
-void Plane::MouseMove(const float& m_dx, const float& m_dy) {									// Fix jittery polygons (use delta time?)
-																								// Can multiply by 0.1f but still little bit jittery
+void Plane::MouseMove(const float& m_xcoord, const float& m_ycoord) {
+
+	float x_diff{ m_xcoord - this->vertices_.at(0).position.x };
+	float y_diff{ m_ycoord - this->vertices_.at(0).position.y };
+
 	for (size_t i{ 0 }; i < this->vertices_.size(); ++i) {
 
-		this->vertices_.at(i).position.x += this->const_speed_ * m_dx;
-		this->vertices_.at(i).position.y += this->const_speed_ * m_dy;
+		this->vertices_.at(i).position.x += x_diff;
+		this->vertices_.at(i).position.y += y_diff;
 
-		if (i < this->vertex_pos_.size()) {
-			
-			this->vertex_pos_.at(i).first += this->const_speed_ * m_dx;
-			this->vertex_pos_.at(i).second += this->const_speed_ * m_dy;
+		if ((i > 0) && (i < this->vertex_pos_.size())) {
+
+			this->vertex_pos_.at(i - 1).first += x_diff;
+			this->vertex_pos_.at(i - 1).second += y_diff;
 
 		}
-		
+
 	}
 
 }
