@@ -154,7 +154,6 @@ xcopy /d /y "$(SolutionDir)assets\library\SDL2_image\SDL2_image-2.6.3\lib\x64\SD
     <ClCompile Include="assets\src\main.cpp" />
     <ClCompile Include="assets\src\Mouse.cpp" />
     <ClCompile Include="assets\src\Plane.cpp" />
-    <ClCompile Include="assets\src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\library\SDL2-devel-2.28.5-VC\SDL2-2.28.5\include\begin_code.h" />

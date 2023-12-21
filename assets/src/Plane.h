@@ -33,16 +33,16 @@ class Plane {
 
 		const std::vector<std::pair<float, float>>& GetVertexPos() const { return this->vertex_pos_; }
 
-		const float& GetXPos() const { return this->xpos_; }
-		const float& GetYPos() const { return this->ypos_; }
+		const float GetXPos() const { return this->xpos_; }
+		const float GetYPos() const { return this->ypos_; }
 
-		const int& GetNumSides() const { return this->num_sides_; }
-		const float& GetRadius() const { return this->radius_; }
+		const int GetNumSides() const { return this->num_sides_; }
+		const float GetRadius() const { return this->radius_; }
 
-		const float& GetMass() const { return this->mass_; }
-		const float& GetSpeed() const { return this->const_speed_; }
+		const float GetMass() const { return this->mass_; }
+		const float GetSpeed() const { return this->const_speed_; }
 
-		const bool& IsStatic() const { return this->is_static_; }
+		const bool IsStatic() const { return this->is_static_; }
 
 		void Move(const float& dx, const float& dy);
 		void MouseMove(const float& m_xcoord, const float& m_ycoord);

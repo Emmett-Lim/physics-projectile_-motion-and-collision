@@ -15,12 +15,12 @@ class Mouse {
 
 		Mouse() : m_x_pos_(0), m_y_pos_(0), m_radii_(10), holding_polygon_(false) {};
 
-		const int& GetMouseXPos() const { return this->m_x_pos_; }
-		const int& GetMouseYPos() const { return this->m_y_pos_; }
+		const int GetMouseXPos() const { return this->m_x_pos_; }
+		const int GetMouseYPos() const { return this->m_y_pos_; }
 
-		const float& GetMouseRadii() const { return this->m_radii_; }
+		const float GetMouseRadii() const { return this->m_radii_; }
 
-		const bool& IsHoldingPolygon() const { return this->holding_polygon_; }
+		const bool IsHoldingPolygon() const { return this->holding_polygon_; }
 
 		void MouseHandleEvent(SDL_Event &e, Plane &plane);
 
