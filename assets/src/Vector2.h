@@ -15,8 +15,7 @@ class Vector2 {
 
 		Vector2(std::pair<float, float> direction = { 1.0f, 1.0f }) : direction_{ direction } {}
 
-		Vector2(const Vector2& other)
-			: direction_(other.direction_) {}
+		Vector2(const Vector2& other) : direction_(other.direction_) {}
 
 		~Vector2();
 
