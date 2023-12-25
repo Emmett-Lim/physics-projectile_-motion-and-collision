@@ -13,13 +13,13 @@ class Vector2 {
 		Vector2(float x_init = 0.0f, float y_init = 0.0f, float x_final = 1.0f, float y_final = 1.0f)
 			: direction_{ (x_final - x_init), (y_final - y_init) } {}
 
-		Vector2(std::pair<float, float> direction = { 1.0f, 1.0f }) : direction_{ direction } {}
+		Vector2(std::pair<float, float> direction) : direction_{ direction } {}
 
 		Vector2(const Vector2& other) : direction_(other.direction_) {}
 
 		~Vector2();
 
-		const std::pair<float, float>& GetInitPoint() const { return this->direction_; }
+		const std::pair<float, float>& GetDirection() const { return this->direction_; }
 
 		static float Dot(const Vector2& a, const Vector2& b) {
 
@@ -76,6 +76,18 @@ class Vector2 {
 
 		}
 
+		Vector2 operator*(const float scalar) {
+
+			return Vector2{ std::make_pair((this->direction_.first * scalar), (this->direction_.second * scalar)) };
+
+		}
+
+		Vector2 operator/(const float scalar) {
+
+			return Vector2{ std::make_pair((this->direction_.first / scalar), (this->direction_.second / scalar)) };
+
+		}
+
 		Vector2& operator=(const Vector2& other) {
 
 			if (*this != other) {
@@ -92,5 +104,9 @@ class Vector2 {
 		void operator+=(const Vector2& other) { *this = (*this + other); }
 
 		void operator-=(const Vector2& other) { *this = (*this - other); }
+
+		void operator*=(const float scalar) { *this = (*this * scalar); }
+
+		void operator/=(const float scalar) { *this = (*this / scalar); }
 
 };
