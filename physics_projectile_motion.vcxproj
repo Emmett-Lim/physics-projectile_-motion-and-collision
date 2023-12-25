@@ -150,6 +150,7 @@ xcopy /d /y "$(SolutionDir)assets\library\SDL2_image\SDL2_image-2.6.3\lib\x64\SD
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="assets\src\Collision.cpp" />
     <ClCompile Include="assets\src\Game.cpp" />
     <ClCompile Include="assets\src\main.cpp" />
     <ClCompile Include="assets\src\Mouse.cpp" />
@@ -236,6 +237,7 @@ xcopy /d /y "$(SolutionDir)assets\library\SDL2_image\SDL2_image-2.6.3\lib\x64\SD
     <ClInclude Include="assets\library\SDL2-devel-2.28.5-VC\SDL2-2.28.5\include\SDL_vulkan.h" />
     <ClInclude Include="assets\library\SDL2_image\SDL2_image-2.6.3\include\SDL_image.h" />
     <ClInclude Include="assets\library\SDL2_ttf-devel\SDL2_ttf-2.20.2\include\SDL_ttf.h" />
+    <ClInclude Include="assets\src\Collision.h" />
     <ClInclude Include="assets\src\Game.h" />
     <ClInclude Include="assets\src\Mouse.h" />
     <ClInclude Include="assets\src\Plane.h" />

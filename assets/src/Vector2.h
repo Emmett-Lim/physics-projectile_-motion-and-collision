@@ -90,12 +90,7 @@ class Vector2 {
 
 		Vector2& operator=(const Vector2& other) {
 
-			if (*this != other) {
-
-				Vector2 temp(other);
-				std::swap(this->direction_, temp.direction_);
-
-			}
+			if (*this != other) { this->direction_ = other.direction_; }
 
 			return *this;
 
