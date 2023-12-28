@@ -25,7 +25,6 @@ class Plane {
 
 		Plane(const float& xpos = (SCREEN_WIDTH / 2), const float& ypos = (SCREEN_HEIGHT / 2),
 			  const float& radius = 5, const int &vertices = 0, bool is_static = false);
-		~Plane();
 
 		const std::vector<SDL_Vertex>& GetVertices() const { return this->vertices_; }
 

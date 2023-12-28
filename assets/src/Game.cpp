@@ -83,6 +83,11 @@ void Game::Update() {
 
 	}
 
+	/* TEST FOR SAT COLLISION (IT WORKS!)
+	if (!Collision::PolygonToPolygon(plane_b, plane_a)) { std::cout << "Collision found!\n"; }
+	else { std::cout << "No Collision!\n"; }
+	*/
+	
 }
 
 void Game::Draw() {

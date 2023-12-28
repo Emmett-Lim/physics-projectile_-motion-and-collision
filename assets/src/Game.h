@@ -3,6 +3,7 @@
 #include "utilities.h"
 #include "Plane.h"
 #include "Mouse.h"
+#include "Collision.h"
 
 class Game {
 

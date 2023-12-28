@@ -17,8 +17,6 @@ class Vector2 {
 
 		Vector2(const Vector2& other) : direction_(other.direction_) {}
 
-		~Vector2();
-
 		const std::pair<float, float>& GetDirection() const { return this->direction_; }
 
 		static float Dot(const Vector2& a, const Vector2& b) {
@@ -46,6 +44,12 @@ class Vector2 {
 
 			float magnitude{ VectorMagnitude(a) };
 			return Vector2{ std::make_pair((a.direction_.first / magnitude), (a.direction_.second / magnitude)) };
+
+		}
+
+		static Vector2 GetOrthogonal(const Vector2& a) {
+
+			return Vector2{ std::make_pair(-a.direction_.second, a.direction_.first) };
 
 		}
 

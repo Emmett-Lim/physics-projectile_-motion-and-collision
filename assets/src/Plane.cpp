@@ -58,11 +58,6 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 
 }
 
-Plane::~Plane() {
-
-	
-}
-
 void Plane::Move(const float& dx, const float& dy) {
 
 	
