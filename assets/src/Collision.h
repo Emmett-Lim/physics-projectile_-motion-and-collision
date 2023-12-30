@@ -8,6 +8,7 @@ class Collision {
 
 	private:
 
+		// Returns std::pair<float, float>, where first is min value on some created axis, and second being max value
 		static std::pair<float, float> FindMinMax(const Vector2& axis, const Plane& plane);
 
 	public:

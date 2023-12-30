@@ -22,12 +22,12 @@ bool Collision::PolygonToPolygon(const Plane& plane_a, const Plane& plane_b) {
 			float init_x{ plane.GetVertices().at(j).position.x };
 			float init_y{ plane.GetVertices().at(j).position.y };
 			
-			float terminal_x{ plane.GetVertices().at((j == static_cast<size_t>(plane.GetVertices().size() - 1)) ?
-													 (((j + 1) % plane.GetVertices().size()) + 1) :
-													 ((j + 1) % plane.GetVertices().size())).position.x };
-			float terminal_y{ plane.GetVertices().at((j == static_cast<size_t>(plane.GetVertices().size() - 1)) ?
-													 (((j + 1) % plane.GetVertices().size()) + 1) :
-													 ((j + 1) % plane.GetVertices().size())).position.y };
+			size_t index{ (j == static_cast<size_t>(plane.GetVertices().size() - 1)) ?
+						  (((j + 1) % plane.GetVertices().size()) + 1) :
+						  ((j + 1) % plane.GetVertices().size()) };
+
+			float terminal_x{ plane.GetVertices().at(index).position.x };
+			float terminal_y{ plane.GetVertices().at(index).position.y };
 
 			// Get normal to displacement vector serving as axis
 			Vector2 axis(Vector2::UnitVector(Vector2::GetOrthogonal(Vector2(init_x, init_y, terminal_x, terminal_y))));

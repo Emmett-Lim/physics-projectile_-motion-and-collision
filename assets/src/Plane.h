@@ -6,20 +6,27 @@ class Plane {
 
 	private:
 		
-		std::vector<SDL_Vertex> vertices_;					// vector that contains SDL_Vertex points (only for polygon)
-		std::vector<int> indices_;							// vector containing numbers representing indices of a triangle connected together to form a polygon
-		std::vector<std::pair<float, float>> vertex_pos_;	// pair container to store pos of vertices (two "vertices" for semi-circle, none for circles)
+		// std::vector<SDL_Vertex> for containing all vertices of a polygon
+		std::vector<SDL_Vertex> vertices_;
+
+		// std::vector<int> containing an order of how to form a polygon based on points
+		std::vector<int> indices_;
+
+		// std::vector<std::pair<float, float>> to store coordinates of the points (might not be needed)
+		std::vector<std::pair<float, float>> vertex_pos_;
 
 		float xpos_, ypos_;
 
 		float radius_;
 		int num_sides_;
-		float rad_{ 2.0f * static_cast<float>(M_PI) };		// not sure if I will need this so it's here for now
+		float rad_{ 2.0f * static_cast<float>(M_PI) };
 		
 		float mass_;
 		float const_speed_;
 
 		bool is_static_;
+
+		bool is_polygon_;
 
 	public:
 
@@ -42,6 +49,7 @@ class Plane {
 		const float GetSpeed() const { return this->const_speed_; }
 
 		const bool IsStatic() const { return this->is_static_; }
+		const bool IsPolygon() const { return this->is_polygon_; }
 
 		void Move(const float& dx, const float& dy);
 		void MouseMove(const float& m_xcoord, const float& m_ycoord);

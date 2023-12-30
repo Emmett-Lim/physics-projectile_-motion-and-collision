@@ -8,54 +8,57 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	this->radius_ = radius;
 
 	this->is_static_ = is_static;
+	this->is_polygon_ = false;
 
-	this->num_sides_ = vertices;
+	// If vertices <= 3, make it a triangle. More than 10 is approximately a circle.
+	if (vertices < 3) {
 
-	this->mass_ = radius * 10.0f;																				// Temporary mass value
-	this->const_speed_ = 8.0f;
+		this->num_sides_ = 3;
 
-	// Assume vertices value of 0 or 1 is a circle, 2 is semi-circle, 3 or more is a polygon
+	} else if (vertices > 10) {
 
-	if (vertices > 2) {
+		this->num_sides_ = static_cast<int>(radius / 2);
+		this->is_polygon_ = true;
 
-		this->vertices_.push_back({ { this->xpos_, this->ypos_ }, { 255, 255, 255, 255 }, { 1, 1 } });			// Vertex at index 0 of vertices array is the position of center of polygon.
-		
-		for (int i{ 1 }; i <= this->num_sides_; ++i) {
+	} else {
 
-			float angle{ (this->rad_ / this->num_sides_) * i };													// angle formed by circumference of circle divided by num of sides of polygon times i
-
-			float x_vertexpos{ this->xpos_ + this->radius_ * cos(angle) };										// (x, y) coords for each vertex
-			float y_vertexpos{ this->ypos_ + this->radius_ * sin(angle) };
-
-			this->vertices_.push_back({ { x_vertexpos, y_vertexpos }, { 255, 255, 255, 255 }, { 1, 1 } });		// Create vertex object with created (x, y) coords and store into vertices container
-
-			this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });											// Store vertex coords into vertex_pos container for collision checking
-
-			this->indices_.push_back(0);																		// Connects 2 vertices to center of polygon w/ respect to vertices container
-			this->indices_.push_back(i);																		// (i.e. value 0 is the center of polygon, connecting with current value i the
-			this->indices_.push_back((i % this->num_sides_) + 1);												// loop is on and the next vertex ((i % this->num_sides_) + 1))
-																												// (i % this->num_sides_) + 1) ensures that the index is within the range
-			if (i == this->num_sides_) {																		// of valid vertices, and it wraps around to 1 for the last vertex.
-
-				this->indices_.push_back(1);																	// This line sets the third element of the set of three indices to 1,
-																												// completing the wrap-around for the last triangle
-			}
-
-		}
-
-	} else if (vertices == 2) {																					// W.I.P.
-
-		for (int i{ 0 }; i < 2; ++i) {
-
-			float x_vertexpos{ this->xpos_ + ((i * -1) * this->radius_ * cos(this->rad_)) };
-			float y_vertexpos{ this->ypos_ + ((i * -1) * this->radius_ * sin(this->rad_)) };
-
-			this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });
-
-		}
+		this->num_sides_ = vertices;
 
 	}
 
+	this->mass_ = radius * 10.0f; // Temporary mass value
+	this->const_speed_ = 8.0f;
+
+	// Vertices value <= 3 is triangle, greater than 3 is a polygon, greater than 10 approximates to a circle
+
+	// Vertex at index 0 of vertices array is the position of center of polygon.
+	this->vertices_.push_back({ { this->xpos_, this->ypos_ }, { 255, 255, 255, 255 }, { 1, 1 } });
+
+	for (int i{ 1 }; i <= this->num_sides_; ++i) {
+
+		// Calculate inner angles of a polygon based on number of sides, then place points regarding the angle
+		float angle{ (this->rad_ / this->num_sides_) * i };
+
+		float x_vertexpos{ this->xpos_ + this->radius_ * cos(angle) };
+		float y_vertexpos{ this->ypos_ + this->radius_ * sin(angle) };
+
+		// Push all vertices into std::vector for drawing onto window
+		this->vertices_.push_back({ { x_vertexpos, y_vertexpos }, { 255, 255, 255, 255 }, { 1, 1 } });
+
+		// Store vertex coords into vertex_pos container (might not be needed)
+		this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });
+
+		// Form a triangle with three points, main point being the center of a polygon
+		this->indices_.push_back(0);
+		this->indices_.push_back(i);
+		this->indices_.push_back((i % this->num_sides_) + 1);
+
+		if (i == this->num_sides_) {
+
+			this->indices_.push_back(1);
+
+		}
+	}
 }
 
 void Plane::Move(const float& dx, const float& dy) {

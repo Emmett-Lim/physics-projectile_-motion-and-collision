@@ -2,7 +2,8 @@
 
 void Mouse::MouseHandleEvent(SDL_Event& e, Plane& plane) {
 	
-	SDL_GetMouseState(&this->m_x_pos_, &this->m_y_pos_);					// Stores mouse coordinates every frame if there is a detectable event
+	// Stores mouse coordinates every frame if there is a detectable event
+	SDL_GetMouseState(&this->m_x_pos_, &this->m_y_pos_);
 
 	if (e.type == SDL_MOUSEBUTTONDOWN) {
 
@@ -16,7 +17,8 @@ void Mouse::MouseHandleEvent(SDL_Event& e, Plane& plane) {
 		} else if (e.button.button == SDL_BUTTON_RIGHT) {
 
 			//this->holding_polygon_ = true;
-			std::cout << "Plane center coords: (" << plane.GetVertices().at(0).position.x << ", " << plane.GetVertices().at(0).position.y << ")\n";			// Test
+			// Print coordinates of center of a polygon (Temporary)
+			std::cout << "Plane center coords: (" << plane.GetVertices().at(0).position.x << ", " << plane.GetVertices().at(0).position.y << ")\n";
 
 		}
 

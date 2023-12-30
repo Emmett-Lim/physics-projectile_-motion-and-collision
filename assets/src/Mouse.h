@@ -7,7 +7,10 @@ class Mouse {
 
 	private:
 
-		int m_x_pos_, m_y_pos_;				// Stores mouse position if within window (SDL2 can only get int value of mouse coords)
+		// Stores mouse position if within window (SDL2 can only get int value of mouse coords)
+		int m_x_pos_, m_y_pos_;
+
+		// Not sure why I marked these as "Placeholder"
 		const float m_radii_;				// Placeholder
 		bool holding_polygon_;				// Placeholder
 
