@@ -8,20 +8,22 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	this->radius_ = radius;
 
 	this->is_static_ = is_static;
-	this->is_polygon_ = false;
+	this->is_polygon_ = true;
 
-	// If vertices <= 3, make it a triangle. More than 10 is approximately a circle.
 	if (vertices < 3) {
 
+		// Create a triangle if num vertices less than 3
 		this->num_sides_ = 3;
 
 	} else if (vertices > 10) {
 
-		this->num_sides_ = static_cast<int>(radius / 2);
-		this->is_polygon_ = true;
+		// Create a circle if vertices > 10
+		this->num_sides_ = floor((2 * M_PI * radius) + 1);
+		this->is_polygon_ = false;
 
 	} else {
 
+		// Leave vertices alone to make a polygon
 		this->num_sides_ = vertices;
 
 	}
@@ -71,6 +73,9 @@ void Plane::MouseMove(const float& m_xcoord, const float& m_ycoord) {
 
 	float x_diff{ m_xcoord - this->vertices_.at(0).position.x };
 	float y_diff{ m_ycoord - this->vertices_.at(0).position.y };
+
+	this->xpos_ += x_diff;
+	this->ypos_ += y_diff;
 
 	for (size_t i{ 0 }; i < this->vertices_.size(); ++i) {
 

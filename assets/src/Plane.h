@@ -15,6 +15,7 @@ class Plane {
 		// std::vector<std::pair<float, float>> to store coordinates of the points (might not be needed)
 		std::vector<std::pair<float, float>> vertex_pos_;
 
+		// Center position of a shape
 		float xpos_, ypos_;
 
 		float radius_;
