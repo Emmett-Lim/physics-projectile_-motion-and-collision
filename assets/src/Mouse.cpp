@@ -13,6 +13,7 @@ void Mouse::MouseHandleEvent(SDL_Event& e, Plane& plane) {
 		   this->m_radii_ + plane.GetRadius()) {
 
 			this->holding_polygon_ = true;
+			plane.SetHold(true);
 
 		} else if (e.button.button == SDL_BUTTON_RIGHT) {
 
@@ -26,6 +27,7 @@ void Mouse::MouseHandleEvent(SDL_Event& e, Plane& plane) {
 	else if (e.type == SDL_MOUSEBUTTONUP) {
 
 		this->holding_polygon_ = false;
+		plane.SetHold(false);
 
 	}
 

@@ -8,6 +8,7 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	this->radius_ = radius;
 
 	this->is_static_ = is_static;
+	this->being_held_ = false;
 	this->is_polygon_ = true;
 
 	if (vertices < 3) {
@@ -18,7 +19,7 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	} else if (vertices > 10) {
 
 		// Create a circle if vertices > 10
-		this->num_sides_ = floor((2 * M_PI * radius) + 1);
+		this->num_sides_ = static_cast<int>(floor((2 * M_PI * radius) + 1));
 		this->is_polygon_ = false;
 
 	} else {
@@ -29,7 +30,6 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	}
 
 	this->mass_ = radius * 10.0f; // Temporary mass value
-	this->const_speed_ = 8.0f;
 
 	// Vertices value <= 3 is triangle, greater than 3 is a polygon, greater than 10 approximates to a circle
 
@@ -47,9 +47,6 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 		// Push all vertices into std::vector for drawing onto window
 		this->vertices_.push_back({ { x_vertexpos, y_vertexpos }, { 255, 255, 255, 255 }, { 1, 1 } });
 
-		// Store vertex coords into vertex_pos container (might not be needed)
-		this->vertex_pos_.push_back({ x_vertexpos, y_vertexpos });
-
 		// Form a triangle with three points, main point being the center of a polygon
 		this->indices_.push_back(0);
 		this->indices_.push_back(i);
@@ -63,9 +60,16 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 	}
 }
 
-void Plane::Move(const float& dx, const float& dy) {
+void Plane::Move(const float dt) {
 
-	
+	if (!this->is_static_ && !this->being_held_) {
+
+		// Look back at Game.cpp to see Physics procedure
+
+		this->xpos_ += this->linear_vel_.GetDirection().first * dt;
+		this->ypos_ += this->linear_vel_.GetDirection().second * dt;
+
+	}
 
 }
 
@@ -81,13 +85,6 @@ void Plane::MouseMove(const float& m_xcoord, const float& m_ycoord) {
 
 		this->vertices_.at(i).position.x += x_diff;
 		this->vertices_.at(i).position.y += y_diff;
-
-		if ((i > 0) && (i < this->vertex_pos_.size())) {
-
-			this->vertex_pos_.at(i - 1).first += x_diff;
-			this->vertex_pos_.at(i - 1).second += y_diff;
-
-		}
 
 	}
 

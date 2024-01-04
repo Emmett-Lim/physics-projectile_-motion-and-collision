@@ -4,13 +4,14 @@
 #include "Plane.h"
 #include "Mouse.h"
 #include "Collision.h"
+#include "Time.h"
 
 class Game {
 
 	private:
 	
 		void HandleEvents();
-		void Update();
+		void Update(float& t, const float dt, float& accumulator);
 		void Draw();
 	
 		bool is_running_{ true };
@@ -19,6 +20,7 @@ class Game {
 		SDL_Renderer* renderer_{ nullptr };
 		SDL_Texture* texture_{ nullptr };
 	
+		Time timer_;
 		Mouse mouse_;
 	
 		// Test Instances:

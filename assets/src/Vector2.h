@@ -10,7 +10,7 @@ class Vector2 {
 	
 	public:
 
-		Vector2(float x_init = 0.0f, float y_init = 0.0f, float x_final = 1.0f, float y_final = 1.0f)
+		Vector2(float x_init = 0.0f, float y_init = 0.0f, float x_final = 0.0f, float y_final = 0.0f)
 			: direction_{ (x_final - x_init), (y_final - y_init) } {}
 
 		Vector2(std::pair<float, float> direction) : direction_{ direction } {}

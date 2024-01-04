@@ -1,32 +1,37 @@
 #pragma once
 
 #include "utilities.h"
+#include "Vector2.h"
 
 class Plane {
 
 	private:
 		
-		// std::vector<SDL_Vertex> for containing all vertices of a polygon
-		std::vector<SDL_Vertex> vertices_;
+		// Plane vertices for a polygon
+		std::vector<SDL_Vertex> vertices_; // contains all vertices of a polygon
+		std::vector<int> indices_; //contains an order of how to form a polygon based on vertices
 
-		// std::vector<int> containing an order of how to form a polygon based on points
-		std::vector<int> indices_;
-
-		// std::vector<std::pair<float, float>> to store coordinates of the points (might not be needed)
-		std::vector<std::pair<float, float>> vertex_pos_;
-
-		// Center position of a shape
-		float xpos_, ypos_;
-
+		// Defines the shape of a polygon, including circles
 		float radius_;
 		int num_sides_;
 		float rad_{ 2.0f * static_cast<float>(M_PI) };
 		
+		// Plane properties
+		float xpos_, ypos_; // Center position of a shape
 		float mass_;
-		float const_speed_;
+		Vector2 linear_vel_;
+		Vector2 force_;
+		const float gravity_{ 9.81f }; // Will not apply to user-held and static planes
 
-		bool is_static_;
+		/* Implement Later:
+		* Vector2 angular_vel_;
+		* Vector2 torque_;
+		* float angle_;
+		*/
 
+		// Checkers for type of plane
+		bool is_static_; // Static object meaning doesn't move even when external forces are applied to it
+		bool being_held_;
 		bool is_polygon_;
 
 	public:
@@ -38,8 +43,6 @@ class Plane {
 
 		const std::vector<int>& GetIndices() const { return this->indices_; }
 
-		const std::vector<std::pair<float, float>>& GetVertexPos() const { return this->vertex_pos_; }
-
 		const float GetXPos() const { return this->xpos_; }
 		const float GetYPos() const { return this->ypos_; }
 
@@ -47,12 +50,15 @@ class Plane {
 		const float GetRadius() const { return this->radius_; }
 
 		const float GetMass() const { return this->mass_; }
-		const float GetSpeed() const { return this->const_speed_; }
 
 		const bool IsStatic() const { return this->is_static_; }
+
+		const bool BeingHeld() const { return this->being_held_; }
+		void SetHold(bool being_held) { this->being_held_ = being_held; }
+
 		const bool IsPolygon() const { return this->is_polygon_; }
 
-		void Move(const float& dx, const float& dy);
+		void Move(const float dt);
 		void MouseMove(const float& m_xcoord, const float& m_ycoord);
 
 };

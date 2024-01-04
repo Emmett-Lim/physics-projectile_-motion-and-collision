@@ -39,10 +39,23 @@ bool Game::Init() {
 
 void Game::GameLoop() {
 
+	float t{ 0.0f };
+	const float dt{ 1 / 60.0f };
+
+	timer_.Start();
+	float initial_time{ timer_.GetElapsedTime() };
+	float accumulator{ 0.0f };
+
 	while (is_running_) {
 
+		float final_time{ timer_.GetElapsedTime() };
+		float frame_time{ final_time - initial_time };
+		initial_time = final_time;
+
+		accumulator += frame_time;
+
 		HandleEvents();
-		Update();
+		Update(t, dt, accumulator);
 		Draw();
 
 	}
@@ -75,18 +88,39 @@ void Game::HandleEvents() {
 
 }
 
-void Game::Update() {
+void Game::Update(float& t, const float dt, float& accumulator) {
 
-	if (mouse_.IsHoldingPolygon()) {
+	/* Procedure:
+	* Handle user events
+	* Apply forces
+	* Update position and velocity
+	* Detect collisions
+	* Solve constraints (work on after basic physics)
+	*/
 
-		plane_b.MouseMove(static_cast<float>(mouse_.GetMouseXPos()), static_cast<float>(mouse_.GetMouseYPos()));
+	while (accumulator >= dt) {
+
+		// Physics process under here
+		// i.e. update plane positions, handle collisions, etc.
+		
+		if (mouse_.IsHoldingPolygon()) {
+
+			plane_b.MouseMove(static_cast<float>(mouse_.GetMouseXPos()), static_cast<float>(mouse_.GetMouseYPos()));
+
+		}
+
+		plane_a.Move(dt);
+		plane_b.Move(dt);
+		
+		/* TEST FOR SAT COLLISION (IT WORKS!)
+		if (!Collision::CheckCollision(plane_b, plane_a)) { std::cout << "Collision found!\n"; }
+		else { std::cout << "No Collision!\n";
+		*/
+
+		accumulator -= dt;
+		t += dt; // Do I need this...?
 
 	}
-
-	/* TEST FOR SAT COLLISION (IT WORKS!)
-	if (!Collision::CheckCollision(plane_b, plane_a)) { std::cout << "Collision found!\n"; }
-	else { std::cout << "No Collision!\n"; }
-	*/
 
 }
 
