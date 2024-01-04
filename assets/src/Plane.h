@@ -21,7 +21,7 @@ class Plane {
 		float mass_;
 		Vector2 linear_vel_;
 		Vector2 force_;
-		const float gravity_{ 9.81f }; // Will not apply to user-held and static planes
+		const Vector2 gravity_{ std::make_pair(0.0f, -9.81f) }; // Will not apply to user-held and static planes
 
 		/* Implement Later:
 		* Vector2 angular_vel_;
