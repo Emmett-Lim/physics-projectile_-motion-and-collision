@@ -11,7 +11,7 @@ class Game {
 	private:
 	
 		void HandleEvents();
-		void Update(float& t, const float dt, float& accumulator);
+		void Update(float& t, const float dt);
 		void Draw();
 	
 		bool is_running_{ true };
