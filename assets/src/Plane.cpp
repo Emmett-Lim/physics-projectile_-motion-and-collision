@@ -73,19 +73,25 @@ void Plane::Move(const float dt) {
 
 }
 
-void Plane::MouseMove(const float& m_xcoord, const float& m_ycoord) {
+void Plane::Push(const Vector2 push) {
+
+	this->xpos_ += push.GetDirection().first;
+	this->ypos_ += push.GetDirection().second;
+
+	for (size_t i{ 0 }; i < this->vertices_.size(); ++i) {
+
+		this->vertices_.at(i).position.x += push.GetDirection().first;
+		this->vertices_.at(i).position.y += push.GetDirection().second;
+
+	}
+
+}
+
+void Plane::MouseMove(const float m_xcoord, const float m_ycoord) {
 
 	float x_diff{ m_xcoord - this->vertices_.at(0).position.x };
 	float y_diff{ m_ycoord - this->vertices_.at(0).position.y };
 
-	this->xpos_ += x_diff;
-	this->ypos_ += y_diff;
-
-	for (size_t i{ 0 }; i < this->vertices_.size(); ++i) {
-
-		this->vertices_.at(i).position.x += x_diff;
-		this->vertices_.at(i).position.y += y_diff;
-
-	}
+	this->Push(Vector2(std::make_pair(x_diff, y_diff)));
 
 }

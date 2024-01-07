@@ -59,6 +59,7 @@ class Plane {
 		const bool IsPolygon() const { return this->is_polygon_; }
 
 		void Move(const float dt);
-		void MouseMove(const float& m_xcoord, const float& m_ycoord);
+		void Push(const Vector2 push);
+		void MouseMove(const float m_xcoord, const float m_ycoord);
 
 };

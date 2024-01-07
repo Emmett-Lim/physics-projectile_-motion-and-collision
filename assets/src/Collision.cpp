@@ -33,6 +33,13 @@ bool Collision::PolygonToPolygon(const Plane& plane_a, const Plane& plane_b) {
 
 	std::vector<Plane> planes{ plane_a, plane_b };
 
+	// Create direction for plane_b to get pushed out of plane_a in case of collision
+	Vector2 push_vector = Vector2::UnitVector(Vector2(plane_a.GetXPos(), plane_a.GetYPos(),
+													  plane_b.GetXPos(), plane_b.GetYPos()));
+
+	// Holds minimum amount to push pane_b out of plane_a
+	float prev_depth{ INFINITY };
+
 	// std::vector for less repetition of checking both plane_a and plane_b
 	for (Plane plane : planes) {
 
@@ -69,9 +76,20 @@ bool Collision::PolygonToPolygon(const Plane& plane_a, const Plane& plane_b) {
 
 			}
 
+			// Get min value of overlap and compare between prev and current depth values
+			float current_depth{ std::fmin(max_a - min_b, max_b - min_a) };
+
+			if (prev_depth > current_depth) { prev_depth = current_depth; }
+
 		}
 
 	}
+
+	// Multiply direction vector by depth penetration for object to be pushed by some depth amount
+	push_vector *= prev_depth; // To be used out of func or within it
+
+	//plane_a.Push(push_vector);
+	//plane_b.Push(push_vector * 0.5f);
 
 	return false;
 
@@ -91,6 +109,13 @@ bool Collision::CircleToPolygon(const Plane& plane_a, const Plane& plane_b) {
 	*/
 
 	std::vector<Plane> planes;
+
+	// Create direction for plane_b to get pushed out of plane_a in case of collision
+	Vector2 push_vector = Vector2::UnitVector(Vector2(plane_a.GetXPos(), plane_a.GetYPos(),
+													  plane_b.GetXPos(), plane_b.GetYPos()));
+
+	// Holds minimum amount to push pane_b out of plane_a
+	float prev_depth{ INFINITY };
 
 	// This is to make the first index of planes a circle and polygon 2nd (Lol)
 	if (plane_a.IsPolygon()) {
@@ -153,6 +178,9 @@ bool Collision::CircleToPolygon(const Plane& plane_a, const Plane& plane_b) {
 
 	}
 
+	// Get min value of overlap
+	prev_depth = std::fmin(max_a - min_b, max_b - min_a);
+
 	// Continue on to polygon to check for any overlaps (THIS IS A BIT OF A REPEAT FROM PolygonToPolygon(); CHANGE FOR LATER)
 	for (size_t j{ 1 }; j < planes.at(1).GetVertices().size(); ++j) {
 
@@ -172,12 +200,12 @@ bool Collision::CircleToPolygon(const Plane& plane_a, const Plane& plane_b) {
 
 		// Find min and max values of both plane_a and plane_b on axis
 		std::pair<float, float> plane_a_min_max{ FindMinMax(axis, plane_a) };
-		float min_a{ plane_a_min_max.first };
-		float max_a{ plane_a_min_max.second };
+		min_a = plane_a_min_max.first;
+		max_a = plane_a_min_max.second;
 
 		std::pair<float, float> plane_b_min_max{ FindMinMax(axis, plane_b) };
-		float min_b{ plane_b_min_max.first };
-		float max_b{ plane_b_min_max.second };
+		min_b = plane_b_min_max.first;
+		max_b = plane_b_min_max.second;
 
 		// Return true if no overlap between min and max values of plane_a and plane_b (no collision)
 		if ((min_a < min_b && max_a <= min_b) ||
@@ -187,7 +215,18 @@ bool Collision::CircleToPolygon(const Plane& plane_a, const Plane& plane_b) {
 
 		}
 
+		// Get min value of overlap and compare between prev and current depth values
+		float current_depth{ std::fmin(max_a - min_b, max_b - min_a) };
+
+		if (prev_depth > current_depth) { prev_depth = current_depth; }
+
 	}
+
+	// Multiply direction vector by depth penetration for object to be pushed by some depth amount
+	push_vector *= prev_depth; // To be used out of func or within it
+
+	//plane_a.Push(push_vector);
+	//plane_b.Push(push_vector * 0.5f);
 
 	return false;
 
@@ -195,6 +234,10 @@ bool Collision::CircleToPolygon(const Plane& plane_a, const Plane& plane_b) {
 
 // Circle-to-Circle Collision
 bool Collision::CircleToCircle(const Plane& plane_a, const Plane& plane_b) {
+
+	// Create direction for plane_b to get pushed out of plane_a in case of collision
+	Vector2 push_vector = Vector2::UnitVector(Vector2(plane_a.GetXPos(), plane_a.GetYPos(),
+													  plane_b.GetXPos(), plane_b.GetYPos()));
 	
 	// Add up the radius of the two circles
 	float total_radius{ plane_a.GetRadius() + plane_b.GetRadius() };
@@ -204,7 +247,15 @@ bool Collision::CircleToCircle(const Plane& plane_a, const Plane& plane_b) {
 						  powf((plane_a.GetYPos() - plane_b.GetYPos()), 2.0f)) };
 
 	// No collision occuring (true) if distance > total_radius
-	return ((distance > total_radius) ? true : false);
+	if (distance > total_radius) { return true; }
+
+	// Multiply direction vector by depth penetration for object to be pushed by some depth amount
+	push_vector *= (total_radius - distance); // To be used out of func or within it
+
+	//plane_a.Push(push_vector);
+	//plane_b.Push(push_vector * 0.5f);
+
+	return false;
 
 }
 
