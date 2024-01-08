@@ -121,6 +121,22 @@ void Game::Update(float& t, const float dt) {
 	else { std::cout << "No Collision!\n"; }
 	*/
 
+	Vector2 mt_vector;
+
+	if (!Collision::CheckCollision(plane_b, plane_a, mt_vector)) {
+	
+		// Test
+		//std::cout << "Collision found!\n";
+		plane_a.Push(mt_vector * 0.5f);
+		plane_b.Push(mt_vector * -0.5f);
+	
+	} else {
+	
+		// Test
+		//std::cout << "No Collision!\n";
+		
+	}
+
 }
 
 void Game::Draw() {
@@ -141,8 +157,10 @@ void Game::Draw() {
 	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));
 	*/
 
-	SDL_RenderGeometry(renderer_, texture_, plane_a.GetVertices().data(), (plane_a.GetNumSides() + 1), plane_a.GetIndices().data(), (plane_a.GetNumSides() * 3));		// Test as non-interactable obj
-	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(), (plane_b.GetNumSides() + 1), plane_b.GetIndices().data(), (plane_b.GetNumSides() * 3));		// Test interactable obj
+	SDL_RenderGeometry(renderer_, texture_, plane_a.GetVertices().data(),
+					   plane_a.GetVertices().size(), plane_a.GetIndices().data(), plane_a.GetIndices().size()); // Test as non-interactable obj
+	SDL_RenderGeometry(renderer_, texture_, plane_b.GetVertices().data(),
+					   plane_b.GetVertices().size(), plane_b.GetIndices().data(), plane_b.GetIndices().size()); // Test interactable obj
 
 	SDL_RenderPresent(renderer_);
 

@@ -52,11 +52,6 @@ Plane::Plane(const float& xpos, const float& ypos, const float& radius, const in
 		this->indices_.push_back(i);
 		this->indices_.push_back((i % this->num_sides_) + 1);
 
-		if (i == this->num_sides_) {
-
-			this->indices_.push_back(1);
-
-		}
 	}
 }
 

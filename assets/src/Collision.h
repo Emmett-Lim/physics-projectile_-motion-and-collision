@@ -13,15 +13,15 @@ class Collision {
 
 	public:
 
-		static bool CheckCollision(const Plane& plane_a, const Plane& plane_b);
+		static bool CheckCollision(const Plane& plane_a, const Plane& plane_b, Vector2& mt_vector);
 	
 		// Polygon-to-Polygon Collision
-		static bool PolygonToPolygon(const Plane& plane_a, const Plane& plane_b);
+		static bool PolygonToPolygon(const Plane& plane_a, const Plane& plane_b, Vector2& mt_vector);
 
 		// Circle-to-Polygon Collision
-		static bool CircleToPolygon(const Plane& plane_a, const Plane& plane_b);
+		static bool CircleToPolygon(const Plane& plane_a, const Plane& plane_b, Vector2& mt_vector);
 
 		// Circle-to-Circle Collision
-		static bool CircleToCircle(const Plane& plane_a, const Plane& plane_b);
+		static bool CircleToCircle(const Plane& plane_a, const Plane& plane_b, Vector2& mt_vector);
 	
 };
