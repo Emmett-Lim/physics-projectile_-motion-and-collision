@@ -17,8 +17,9 @@ class Plane {
 		float rad_{ 2.0f * static_cast<float>(M_PI) };
 		
 		// Plane properties
-		float xpos_, ypos_; // Center position of a shape
+		float xpos_, ypos_; // Render position of the plane
 		float mass_;
+		Vector2 init_pos, final_pos; // actual position of the plane
 		Vector2 linear_vel_;
 		Vector2 force_;
 		const Vector2 gravity_{ std::make_pair(0.0f, -9.81f) }; // Will not apply to user-held and static planes
@@ -59,7 +60,7 @@ class Plane {
 		const bool IsPolygon() const { return this->is_polygon_; }
 
 		void Move(const float dt);
-		void Push(const Vector2 push);
+		void Push(const Vector2 pos_vector);
 		void MouseMove(const float m_xcoord, const float m_ycoord);
 
 };

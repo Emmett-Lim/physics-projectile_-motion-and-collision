@@ -50,6 +50,9 @@ void Game::GameLoop() {
 
 		float final_time{ timer_.GetElapsedTime() };
 		float frame_time{ final_time - initial_time };
+
+		if (frame_time > 0.25f) { frame_time = 0.25f; }
+
 		initial_time = final_time;
 
 		accumulator += frame_time;
@@ -64,6 +67,8 @@ void Game::GameLoop() {
 			t += dt; // Do I need this...?
 
 		}
+
+		const float alpha{ accumulator / dt };
 
 		Draw();
 

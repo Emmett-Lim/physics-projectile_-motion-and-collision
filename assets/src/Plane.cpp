@@ -68,15 +68,15 @@ void Plane::Move(const float dt) {
 
 }
 
-void Plane::Push(const Vector2 push) {
+void Plane::Push(const Vector2 pos_vector) {
 
-	this->xpos_ += push.GetDirection().first;
-	this->ypos_ += push.GetDirection().second;
+	this->xpos_ += pos_vector.GetDirection().first;
+	this->ypos_ += pos_vector.GetDirection().second;
 
 	for (size_t i{ 0 }; i < this->vertices_.size(); ++i) {
 
-		this->vertices_.at(i).position.x += push.GetDirection().first;
-		this->vertices_.at(i).position.y += push.GetDirection().second;
+		this->vertices_.at(i).position.x += pos_vector.GetDirection().first;
+		this->vertices_.at(i).position.y += pos_vector.GetDirection().second;
 
 	}
 
